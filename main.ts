@@ -1,15 +1,15 @@
-import {
-	App,
-	ItemView,
-	Plugin,
-	PluginSettingTab,
-	Setting,
-	WorkspaceLeaf,
-} from "obsidian";
-
+import { Plugin, WorkspaceLeaf, normalizePath } from "obsidian";
 import DatabaseView from "./src/models/DatabaseView";
-import { DEFAULT_SETTINGS, DatabaseSettings, VIEW_TYPE } from "src/const";
+
+import {
+	DEFAULT_SETTINGS,
+	DatabaseSettings,
+	DATABASE_VIEW_TYPE,
+	KANBAN_VIEW_TYPE,
+} from "src/const";
 import DatabaseSettingTab from "src/models/DatabaseSettingsTab";
+import KanbanView from "src/models/KanbanView";
+import { DbManager } from "databaseManager";
 
 export default class DatabasePlugin extends Plugin {
 	settings: DatabaseSettings;
@@ -18,8 +18,13 @@ export default class DatabasePlugin extends Plugin {
 		await this.loadSettings();
 
 		this.registerView(
-			VIEW_TYPE.viewType,
+			DATABASE_VIEW_TYPE.viewType,
 			(leaf: WorkspaceLeaf) => new DatabaseView(leaf)
+		);
+
+		this.registerView(
+			KANBAN_VIEW_TYPE.viewType,
+			(leaf: WorkspaceLeaf) => new KanbanView(leaf)
 		);
 
 		const ribbonIconEl = this.addRibbonIcon(
@@ -32,22 +37,24 @@ export default class DatabasePlugin extends Plugin {
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new DatabaseSettingTab(this.app, this));
+
+		new DbManager();
 	}
 
 	onunload() {
-		this.app.workspace.detachLeavesOfType(VIEW_TYPE.viewType);
+		this.app.workspace.detachLeavesOfType(DATABASE_VIEW_TYPE.viewType);
 	}
 
 	async activateView() {
-		this.app.workspace.detachLeavesOfType(VIEW_TYPE.viewType);
+		this.app.workspace.detachLeavesOfType(DATABASE_VIEW_TYPE.viewType);
 
-		await this.app.workspace.getRightLeaf(false)?.setViewState({
-			type: VIEW_TYPE.viewType,
+		await this.app.workspace.getLeaf(false)?.setViewState({
+			type: DATABASE_VIEW_TYPE.viewType,
 			active: true,
 		});
 
 		this.app.workspace.revealLeaf(
-			this.app.workspace.getLeavesOfType(VIEW_TYPE.viewType)[0]
+			this.app.workspace.getLeavesOfType(DATABASE_VIEW_TYPE.viewType)[0]
 		);
 	}
 

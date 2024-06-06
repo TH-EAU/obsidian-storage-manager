@@ -22,14 +22,14 @@ class DatabaseSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName("Setting #1")
-			.setDesc("It's a secret")
+			.setName("Database emplacement")
+			.setDesc("Set the emplacement of the sqlite database file.")
 			.addText((text) =>
 				text
-					.setPlaceholder("Enter your secret")
-					.setValue(this.plugin.settings.mySetting)
+					.setPlaceholder("/path")
+					.setValue(this.plugin.settings.path)
 					.onChange(async (value) => {
-						this.plugin.settings.mySetting = value;
+						this.plugin.settings.path = value;
 						await this.plugin.saveSettings();
 					})
 			);

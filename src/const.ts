@@ -2,11 +2,17 @@ export interface DatabaseViewType {
 	viewType: string;
 }
 export interface DatabaseSettings {
-	mySetting: string;
+	path: string;
+	name: string;
 }
 
-export const VIEW_TYPE: DatabaseViewType = { viewType: "database-view" };
-
+export const DATABASE_VIEW_TYPE: DatabaseViewType = {
+	viewType: "database-view",
+};
+export const KANBAN_VIEW_TYPE: DatabaseViewType = {
+	viewType: "kanban-view",
+};
 export const DEFAULT_SETTINGS: DatabaseSettings = {
-	mySetting: "default",
+	path: ".",
+	name: "_dataManagers",
 };
