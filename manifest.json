@@ -1,11 +1,11 @@
 {
-	"id": "database-plugin",
-	"name": "Database",
+	"id": "obsidian-storage-manager",
+	"name": "Storage Manager",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Add Database to obsidian, and feature to create, update, link and more your sheets and datas.",
+	"author": "Théau NICOLAS",
+	"authorUrl": "https://www.linkedin.com/in/th%C3%A9au-nicolas-bba7ba114/",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }
