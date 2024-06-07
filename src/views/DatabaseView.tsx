@@ -1,7 +1,7 @@
-import { DbManager } from "databaseManager";
+import { DbManager } from "../data/databaseManager";
 import { useEffect, useState } from "react";
 
-const DatabaseViewComponent: React.FC = () => {
+const DatabaseView: React.FC = () => {
 	const [data, setData] = useState<any[]>([]);
 
 	const getData = async (): Promise<any> => {
@@ -37,4 +37,4 @@ const DatabaseViewComponent: React.FC = () => {
 	);
 };
 
-export default DatabaseViewComponent;
+export default DatabaseView;

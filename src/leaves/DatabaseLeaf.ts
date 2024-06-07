@@ -1,9 +1,9 @@
 import { ItemView, WorkspaceLeaf, Notice, Menu } from "obsidian";
 import { DATABASE_VIEW_TYPE, KANBAN_VIEW_TYPE } from "src/const";
-import DatabaseViewComponent from "../Database.view.comp";
-import { renderReactApp } from "../index";
+import DatabaseView from "@views/DatabaseView";
+import { renderReactApp } from "@src/index";
 
-class DatabaseView extends ItemView {
+class DatabaseLeaf extends ItemView {
 	constructor(leaf: WorkspaceLeaf) {
 		super(leaf);
 	}
@@ -17,16 +17,7 @@ class DatabaseView extends ItemView {
 	}
 
 	protected async onOpen(): Promise<void> {
-		const container = this.containerEl.querySelector(".view-content");
-		if (container) {
-			container.empty();
-			const rootElement = document.createElement("div");
-			rootElement.id = "root";
-			container.appendChild(rootElement);
-			renderReactApp(rootElement, DatabaseViewComponent);
-		} else {
-			console.error("Failed to find .view-content element");
-		}
+		renderReactApp(this.containerEl, DatabaseView);
 	}
 
 	onPaneMenu(menu: Menu) {
@@ -53,4 +44,4 @@ class DatabaseView extends ItemView {
 	}
 }
 
-export default DatabaseView;
+export default DatabaseLeaf;

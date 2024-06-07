@@ -1,30 +1,31 @@
 import { Plugin, WorkspaceLeaf, normalizePath } from "obsidian";
-import DatabaseView from "./src/models/DatabaseView";
 
 import {
 	DEFAULT_SETTINGS,
-	DatabaseSettings,
 	DATABASE_VIEW_TYPE,
 	KANBAN_VIEW_TYPE,
 } from "src/const";
-import DatabaseSettingTab from "src/models/DatabaseSettingsTab";
-import KanbanView from "src/models/KanbanView";
-import { DbManager } from "databaseManager";
 
-export default class DatabasePlugin extends Plugin {
-	settings: DatabaseSettings;
+import DatabaseSettingTab from "@src/settings/DatabaseSettingsTab";
+import { DbManager } from "@data/databaseManager";
+import DatabaseLeaf from "@src/leaves/DatabaseLeaf";
+import KanbanLeaf from "@src/leaves/KanbanLeaf";
+import { DatabaseManagerSettings } from "@src/models/DatabaseSettings.model";
+
+export default class DatabaseManagerPlugin extends Plugin {
+	settings: DatabaseManagerSettings;
 
 	async onload() {
 		await this.loadSettings();
 
 		this.registerView(
 			DATABASE_VIEW_TYPE.viewType,
-			(leaf: WorkspaceLeaf) => new DatabaseView(leaf)
+			(leaf: WorkspaceLeaf) => new DatabaseLeaf(leaf)
 		);
 
 		this.registerView(
 			KANBAN_VIEW_TYPE.viewType,
-			(leaf: WorkspaceLeaf) => new KanbanView(leaf)
+			(leaf: WorkspaceLeaf) => new KanbanLeaf(leaf)
 		);
 
 		const ribbonIconEl = this.addRibbonIcon(
@@ -35,10 +36,9 @@ export default class DatabasePlugin extends Plugin {
 			}
 		);
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new DatabaseSettingTab(this.app, this));
 
-		new DbManager();
+		new DbManager(this.settings);
 	}
 
 	onunload() {

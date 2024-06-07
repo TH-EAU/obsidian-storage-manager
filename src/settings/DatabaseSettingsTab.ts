@@ -1,17 +1,10 @@
-import DatabasePlugin from "main";
-import {
-	App,
-	ItemView,
-	Plugin,
-	PluginSettingTab,
-	Setting,
-	WorkspaceLeaf,
-} from "obsidian";
+import DatabaseManagerPlugin from "main";
+import { App, PluginSettingTab, Setting } from "obsidian";
 
 class DatabaseSettingTab extends PluginSettingTab {
-	plugin: DatabasePlugin;
+	plugin: DatabaseManagerPlugin;
 
-	constructor(app: App, plugin: DatabasePlugin) {
+	constructor(app: App, plugin: DatabaseManagerPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
@@ -22,14 +15,14 @@ class DatabaseSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName("Database emplacement")
+			.setName("Host")
 			.setDesc("Set the emplacement of the sqlite database file.")
 			.addText((text) =>
 				text
-					.setPlaceholder("/path")
-					.setValue(this.plugin.settings.path)
+					.setPlaceholder("/localhost")
+					.setValue(this.plugin.settings.database.host)
 					.onChange(async (value) => {
-						this.plugin.settings.path = value;
+						this.plugin.settings.database.host = value;
 						await this.plugin.saveSettings();
 					})
 			);

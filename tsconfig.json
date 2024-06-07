@@ -14,7 +14,16 @@
 		"lib": ["DOM", "ES5", "ES6", "ES7"],
 		"jsx": "react-jsx",
 		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"paths": {
+			"@src/*": ["./src/*"],
+			"@data/*": ["./src/data/*"],
+			"@views/*": ["./src/views/*"],
+			"@leaves/*": ["./src/leaves/*"],
+			"@models/*": ["./src/models/*"],
+			"@settings/*": ["./src/settings/*"],
+			"@components/*": ["./src/components/*"]
+		}
 	},
 	"include": ["**/*.ts", "src/index.ts", "main.tsx", "test.js"]
 }
