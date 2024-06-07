@@ -21,6 +21,8 @@
 			"@views/*": ["./src/views/*"],
 			"@leaves/*": ["./src/leaves/*"],
 			"@models/*": ["./src/models/*"],
+			"@services/*": ["./src/services/*"],
+			"@contexts/*": ["./src/contexts/*"],
 			"@settings/*": ["./src/settings/*"],
 			"@components/*": ["./src/components/*"]
 		}

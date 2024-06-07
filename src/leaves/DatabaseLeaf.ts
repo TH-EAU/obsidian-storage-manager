@@ -17,7 +17,7 @@ class DatabaseLeaf extends ItemView {
 	}
 
 	protected async onOpen(): Promise<void> {
-		renderReactApp(this.containerEl, DatabaseView);
+		renderReactApp(this.containerEl, DatabaseView, this.app);
 	}
 
 	onPaneMenu(menu: Menu) {
