@@ -1,17 +1,21 @@
 export interface dataTable {
 	name: string;
 	schema: {
-		columns: [
-			{
+		columns: {
+			name: string;
+			type: TABLE_TYPES;
+			relatedTable?: {
 				name: string;
-				type: TABLE_TYPES;
-			}
-		];
+				onField: string;
+			};
+		}[];
 	};
 }
 
-enum TABLE_TYPES {
+export enum TABLE_TYPES {
 	text = "TEXT",
+	relation = "INT",
 	number = "INT",
 	list = "TEXT[]",
+	leaf = "TEXT[]",
 }

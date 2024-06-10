@@ -8,6 +8,7 @@ export class DbManager {
 	private readonly _dbSettings: DatabaseManagerSettings;
 
 	constructor(dbSettings: DatabaseManagerSettings) {
+		console.log("create pool");
 		if (!DbManager.pool) {
 			this._dbSettings = dbSettings;
 			DbManager.pool = new Pool(this._dbSettings.database);

@@ -15,23 +15,26 @@ import {
 	TagLabel,
 	TagLeftIcon,
 } from "@chakra-ui/react";
+import { createTable } from "@src/services/tableService";
 
 const DatabaseView: React.FC = () => {
 	const [data, setData] = useState<any[]>([]);
 
 	const getData = async (): Promise<any> => {
-		try {
-			const pool = DbManager.getPool();
-			const client = await pool.connect();
-			try {
-				const result = await client.query(`SELECT * FROM "Student"`);
-				setData(result.rows);
-			} finally {
-				client.release();
-			}
-		} catch (err) {
-			console.error(err);
-		}
+		// try {
+		// 	const pool = DbManager.getPool();
+		// 	const client = await pool.connect();
+		// 	try {
+		// 		const result = await client.query(`SELECT * FROM "Student"`);
+		// 		setData(result.rows);
+		// 	} finally {
+		// 		client.release();
+		// 	}
+		// } catch (err) {
+		// 	console.error(err);
+		// }
+
+		createTable();
 	};
 
 	useEffect(() => {
