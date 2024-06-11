@@ -18,8 +18,9 @@ export default class DatabaseManagerPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		console.log("iccii");
-		new DbManager(this.settings);
+		DbManager.setDbSettings(this.settings);
+		DbManager.setPool();
+
 		this.registerView(
 			DATABASE_VIEW_TYPE.viewType,
 			(leaf: WorkspaceLeaf) => new DatabaseLeaf(leaf)

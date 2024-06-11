@@ -21,11 +21,12 @@
 			"@views/*": ["./src/views/*"],
 			"@leaves/*": ["./src/leaves/*"],
 			"@models/*": ["./src/models/*"],
+			"@hooks/*": ["./src/hooks/*"],
 			"@services/*": ["./src/services/*"],
 			"@contexts/*": ["./src/contexts/*"],
 			"@settings/*": ["./src/settings/*"],
 			"@components/*": ["./src/components/*"]
 		}
 	},
-	"include": ["**/*.ts", "src/index.ts", "main.tsx", "test.js"]
+	"include": ["**/*.ts", "src/index.ts", "main.tsx", "test.js", "src"]
 }

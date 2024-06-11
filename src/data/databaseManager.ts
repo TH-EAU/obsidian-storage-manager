@@ -5,22 +5,20 @@ import { DatabaseManagerSettings } from "@src/models/DatabaseSettings.model";
 
 export class DbManager {
 	private static pool: Pool;
-	private readonly _dbSettings: DatabaseManagerSettings;
+	private static _dbSettings: DatabaseManagerSettings;
 
-	constructor(dbSettings: DatabaseManagerSettings) {
-		console.log("create pool");
-		if (!DbManager.pool) {
-			this._dbSettings = dbSettings;
-			DbManager.pool = new Pool(this._dbSettings.database);
-		}
+	static setPool() {
+		DbManager.pool = new Pool(this._dbSettings.database);
 	}
 
 	static getPool(): Pool {
 		if (!DbManager.pool) {
-			throw new Error(
-				"Pool has not been initialized. Please create an instance of DbManager first."
-			);
+			throw new Error("Pool has not been initialized.");
 		}
 		return DbManager.pool;
+	}
+
+	static setDbSettings(dbSettings: DatabaseManagerSettings) {
+		this._dbSettings = dbSettings;
 	}
 }

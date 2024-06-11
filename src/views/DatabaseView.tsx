@@ -1,77 +1,23 @@
-import { DbManager } from "../data/databaseManager";
-import { useEffect, useState } from "react";
-import ObsidianLink from "@components/ObsidianLink";
-import { VscClose } from "react-icons/vsc";
-import {
-	Table,
-	TableCaption,
-	TableContainer,
-	Tbody,
-	Th,
-	Thead,
-	Tr,
-	Td,
-	Tag,
-	TagLabel,
-	TagLeftIcon,
-} from "@chakra-ui/react";
-import { createTable } from "@src/services/tableService";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import FancyTable from "@components/FancyTable";
+import TableStack from "@components/TableStack";
+import { Container } from "@chakra-ui/react";
 
 const DatabaseView: React.FC = () => {
-	const [data, setData] = useState<any[]>([]);
+	const [activeTable, setActiveTable] = useState<string>("");
 
-	const getData = async (): Promise<any> => {
-		// try {
-		// 	const pool = DbManager.getPool();
-		// 	const client = await pool.connect();
-		// 	try {
-		// 		const result = await client.query(`SELECT * FROM "Student"`);
-		// 		setData(result.rows);
-		// 	} finally {
-		// 		client.release();
-		// 	}
-		// } catch (err) {
-		// 	console.error(err);
-		// }
-
-		createTable();
+	const onSelect = (tableName: string) => {
+		setActiveTable(tableName);
 	};
 
-	useEffect(() => {
-		getData();
-	}, []);
 	return (
-		<>
-			<TableContainer>
-				<Table variant="simple">
-					<TableCaption>Hello</TableCaption>
-					<Thead>
-						<Tr>
-							<Th>Name</Th>
-							<Th>Tags</Th>
-						</Tr>
-					</Thead>
-					<Tbody>
-						{data?.map((e) => (
-							<Tr key={e.id}>
-								<Td>{e.name}</Td>
-								<Td>
-									{e.tags?.split(";").map((t: string) => (
-										<Tag key={t}>
-											<TagLeftIcon
-												boxSize="12px"
-												as={VscClose}
-											/>
-											<TagLabel>{t}</TagLabel>
-										</Tag>
-									))}
-								</Td>
-							</Tr>
-						))}
-					</Tbody>
-				</Table>
-			</TableContainer>
-		</>
+		<Container>
+			<AnimatePresence>
+				{activeTable && <FancyTable tableName={activeTable} />}
+				{!activeTable && <TableStack onSelect={onSelect} />}
+			</AnimatePresence>
+		</Container>
 	);
 };
 

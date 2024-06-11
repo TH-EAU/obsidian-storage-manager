@@ -1,7 +1,12 @@
 import { extendTheme } from "@chakra-ui/react";
 import { color } from "framer-motion";
 
-const theme = extendTheme({
+export const theme = extendTheme({
+	color: {
+		brand: {
+			500: "#403a83",
+		},
+	},
 	styles: {
 		global: () => ({
 			body: {
@@ -12,5 +17,9 @@ const theme = extendTheme({
 				color: "",
 			},
 		}),
+	},
+	config: {
+		initialColorMode: "dark",
+		useSystemColorMode: true,
 	},
 });

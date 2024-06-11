@@ -2,8 +2,9 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "obsidian";
 import AppContext from "@contexts/AppContext";
-import { ChakraProvider, theme } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 export function renderReactApp(containerEl: Element, View: React.FC, app: App) {
 	if (!View) {
@@ -26,15 +27,19 @@ export function renderReactApp(containerEl: Element, View: React.FC, app: App) {
 	root.render(
 		<React.StrictMode>
 			<QueryClientProvider client={queryClient}>
+				<ColorModeScript
+					initialColorMode={theme.config.initialColorMode}
+				/>
 				<ChakraProvider
 					theme={theme}
-					resetCSS={false}
+					// resetCSS={false}
 					disableGlobalStyle={true}
 				>
 					<AppContext currentApp={app}>
 						<View />
 					</AppContext>
 				</ChakraProvider>
+				<ReactQueryDevtools initialIsOpen={false} />
 			</QueryClientProvider>
 		</React.StrictMode>
 	);
